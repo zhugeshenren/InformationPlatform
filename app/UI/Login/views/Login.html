@@ -1,0 +1,78 @@
+<!--导入基础模板base.html-->
+{% extends "../../Base/views/Base.html" %}
+
+
+<!--进行块替换-->
+{% block style %}
+  <style>
+    .header {
+      text-align: center;
+    }
+    .header h1 {
+      font-size: 200%;
+      color: #333;
+      margin-top: 30px;
+    }
+    .header p {
+      font-size: 14px;
+    }
+  </style>
+{% end %}
+
+{% block body %}
+<br/>
+<div class="header">
+  <div class="am-g">
+    <div class="am-u-sm-6 am-u-sm-centered">
+      <img src="/static/Template/img/logo_1.png" class="am-img-responsive"/>
+    </div>
+  <hr />
+</div>
+</div>
+
+
+<div class="am-g" >
+  <div class="am-u-lg-6 am-u-md-8 am-u-sm-11 am-u-sm-centered">
+
+    <hr>
+
+    <form method="post" class="am-form" action="/Login/Proof">
+      <label for="username_id">用户名:</label>
+      <input type="text" name="username" id = "username_id" value="">
+      <br>
+      <label for="password_id">密码:</label>
+      <input type="password" name="password"  id="password_id" value="">
+
+      <br />
+      <br />
+
+      <input type="submit" name="" value="登 录" class="am-btn am-btn-primary am-btn-block" >
+
+      <br />
+      <br />
+
+      <div class="am-g">
+        <div class="am-u-sm-5">
+          <label for="remember-me" class="am-checkbox">
+          <input id="remember-me" type="checkbox" value="" data-am-ucheck>
+          记住密码
+      </label>
+
+        </div>
+
+         <div class="am-u-sm-7" align="right">
+           <label class="am-checkbox"><a href="Register">注册用户</a>  &nbsp; <a href="RetrievePassword">忘记密码?</a></label>
+         </div>
+
+      </div>
+
+    </form>
+
+    <hr>
+
+    <p align="center">By DennisRong</p>
+  </div>
+
+</div>
+{% end %}
+

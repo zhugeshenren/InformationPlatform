@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+    <!-- 引入jQuery -->
+    <script src="/static/eleditor/jquery.min.js"></script>
+
+    <script src="/static/eleditor/webuploader.min.js"></script>
+    <!-- 插件核心 -->
+    <script src="/static/eleditor/Eleditor.js"></script>
+
+    <script src=""></script>
+
+
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		body {
+		    -webkit-touch-callout: none;
+		    background-color: #fff;
+		    line-height: inherit;
+		    padding-top: 30px;
+		}
+		#contentEditor{
+			width: 100%;
+			min-height: 300px;
+			box-sizing: border-box;
+			padding: 10px;
+    		color: #444;
+		}
+		#contentEditor p{
+		    letter-spacing: 0.25px;
+		    font: 16px/25px Tahoma, Verdana, 宋体;
+		    margin: 20px 0px;
+		}
+		#contentEditor h4 {
+		    font-weight: bold;
+		    line-height: 1.333em;
+		    margin: 10px 0 20px;
+		    padding: 25px 0 0;
+		}
+		#contentEditor img{
+			width: 100%;
+			height: auto;
+			box-sizing: border-box;
+		}
+		.dempTip{
+		    border-left: 2px solid #00BCD4;
+		    padding-left: 5px;
+		    margin: 10px;
+		    font-size: 16px;
+		}
+		code{
+			white-space: pre-wrap;
+		    background: #2D2D2D;
+		    display: block;
+		    margin: 10px;
+		    border-radius: 5px;
+		    color: #fff;
+		}
+		.viewTit{
+		    color: #FF5722;
+		    position: fixed;
+		    top: 0;
+		    left: 0;
+		    height: 30px;
+		    line-height: 30px;
+		    font-size: 14px;
+		    text-align: center;
+		    display: block;
+		    width: 100%;
+		    background: #FFEB3B;
+		    box-shadow: 0 0 5px;
+		}
+	</style>
+</head>
+<body>
+
+<font class="viewTit">（此编辑器仅适用移动端，chrome请按F12模拟手机设备进行浏览）</font>
+<script>
+	var ua = navigator.userAgent.toLowerCase();	;
+
+	if( ua.indexOf('android') >= 0 || ua.indexOf('iphone') >= 0 || ua.indexOf('ipad') >= 0 || $(window).width() <= 500 ){
+		$('.viewTit').hide();
+		$('body').css('padding-top', 0);
+	}
+</script>
+<p class="dempTip">用户名 15291910186：</p>
+
+
+<hr>
+
+<div id="contentEditor">
+
+   <h1 style="text-align: center;">点击开始编辑文章</h1>
+
+</div>
+
+<>
+
+<script>
+var contentEditor = new Eleditor({
+						el: '#contentEditor',
+						upload:{
+							server: '/upload.json',
+							compress: false,
+							fileSizeLimit: 2
+						},
+						toolbars: [
+			              'insertText',
+			              'editText',
+			              'insertImage',
+			              'insertLink',
+			              'deleteBefore',
+			              'deleteAfter',
+			              'insertHr',
+			              'deleteThis',
+
+			              //自定义一个按钮
+			              {
+			                  id: 'changeIndent',
+			                  tag: 'p,img', //指定P标签操作，可不填
+			                  name: '缩进',
+			                  handle: function(select, controll){//回调返回选择的dom对象和控制按钮对象
+			                    var _$ele = $(select),
+			                      _$controll = $(controll);
+			                    _$controll.html(_$ele.css('text-indent') != '0px' ? '缩进' : '还原缩进');
+			                    _$ele.css('text-indent', _$ele.css('text-indent') == '0px' ? '5em' : '0px');
+			                  }
+			              },
+
+			              //自定义按钮，该按钮只有在编辑IMG标签时才会显示
+			              {
+			                  id: 'rotateImage',
+			                  tag: 'img', //指定IMG标签操作，可不填
+			                  name: '反转图片',
+			                  handle: function(select, controll){
+			                    var _$ele = $(select),
+			                      _$controll = $(controll);
+			                    if( _$ele.attr('transform-rotate') != '180deg' ){
+			                      _$controll.html('还原图片');
+			                        _$ele.attr('transform-rotate', '180deg').css('transform', 'rotate(180deg)');
+			                    }else{
+			                      _$controll.html('反转图片');
+			                      _$ele.removeAttr('transform-rotate').css('transform', 'rotate(0)');
+			                    }
+			                  }
+			                },
+
+			                'cancel'
+						]
+						//placeHolder: 'placeHolder设置占位符'
+					});
+</script>
+
+</body>
+</html>

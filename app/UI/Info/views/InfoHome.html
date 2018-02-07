@@ -1,0 +1,62 @@
+{% extends "../../Base/views/Base.html" %}
+
+
+{% block link %}
+    <link rel="stylesheet" href="/static/default/style.css"/>
+{% end %}
+
+{% block body %}
+<div class="am-tabs" id="doc-my-tabs">
+  <ul class="am-tabs-nav am-nav am-nav-tabs am-nav-justify">
+    <li class="am-active"><a href="">资讯</a></li>
+    <li><a href="">发现</a></li>
+  </ul>
+  <div class="am-tabs-bd">
+    <div class="am-tab-panel am-active" ><iframe src="/Info/InfoNews" height="600px"></iframe></div>
+    <div class="am-tab-panel am-active" ><iframe src="/Home/index" height="600px"></iframe></div>
+  </div>
+</div>
+<script>
+  $(function() {
+    $('#doc-my-tabs').tabs();
+  })
+
+  $('#doc-my-tabs').find('a').on('opened.tabs.amui', function(e) {
+      console.log('[%s] 选项卡打开了', $(this).text());
+
+})
+</script>
+
+
+
+ <!--底部-->
+    <div data-am-widget="navbar" class="am-navbar am-cf my-nav-footer " id="">
+      <ul class="am-navbar-nav am-cf am-avg-sm-4 my-footer-ul">
+        <li>
+          <a href="/Home/" class="">
+            <span class="am-icon-home"></span>
+            <span class="am-navbar-label">主页</span>
+          </a>
+        </li>
+        <li>
+          <a href="/InfoHome/" class="">
+            <span class=" am-icon-info"></span>
+            <span class="am-navbar-label">信息</span>
+          </a>
+        </li>
+        <li>
+          <a href="/ConversationHome/" class="">
+            <span class=" am-icon-comments"></span>
+            <span class="am-navbar-label">留言</span>
+          </a>
+        </li>
+        <li>
+          <a href="/MyHome/" class="">
+            <span class="am-icon-user"></span>
+            <span class="am-navbar-label">我的</span>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+{% end %}

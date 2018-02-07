@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+
+    <meta charset="UTF-8">
+    <title>Login </title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <link rel="alternate icon" type="image/png" href="/static/amazeui/i/favicon.png">
+    <link rel="stylesheet" href="/static/amazeui/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="/static/default/style.css"/>
+
+    <script src="/static/amazeui/js/jquery.min.js"></script>
+    <script src="/static/amazeui/js/amazeui.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+	<header data-am-widget="header" class="am-header am-header-default my-header">
+
+      <h1 class="am-header-title">
+       农业信息平台
+      </h1>
+
+    </header>
+
+
+    <!--搜索-->
+    <div class="am-g">
+        <div class="am-u-sm-8"><input type="text" class="" id="doc-ipt-email-1" placeholder="输入搜索内容"></div>
+        <div class="am-u-sm-4"><button type="button" class="am-btn am-btn-default am-round">搜索</button></div>
+    </div>
+
+    <!-- banner -->
+    <div data-am-widget="slider" class="am-slider am-slider-a1" data-am-slider='{&quot;directionNav&quot;:false}'>
+      <ul class="am-slides">
+        <li>
+          <img src="/static/3.jpg">
+        </li>
+        <li>
+          <img src="/static/2.jpg">
+        </li>
+        <li>
+          <img src="/static/1.jpg">
+        </li>
+        <li>
+          <img src="/static/2.jpg">
+        </li>
+      </ul>
+    </div>
+
+
+      <div class="am-tabs" id="doc-my-tabs">
+  <ul class="am-tabs-nav am-nav am-nav-tabs am-nav-justify">
+    <li class="am-active"><a href="">树苗</a></li>
+    <li><a href="">水果</a></li>
+      <li><a href="">农具</a></li>
+      <li><a href="">找帮手</a></li>
+  </ul>
+  <div class="am-tabs-bd">
+    <div class="am-tab-panel am-active" ><iframe src="/Home/index" height="600px"></iframe></div>
+    <div class="am-tab-panel am-active" ><iframe src="/Home/index" height="600px"></iframe></div>
+      <div class="am-tab-panel am-active" ><iframe src="/Home/index" height="600px"></iframe></div>
+      <div class="am-tab-panel am-active" ><iframe src="/Home/index" height="600px"></iframe></div>
+  </div>
+</div>
+<script>
+  $(function() {
+    $('#doc-my-tabs').tabs();
+  })
+
+  $('#doc-my-tabs').find('a').on('opened.tabs.amui', function(e) {
+      console.log('[%s] 选项卡打开了', $(this).text());
+
+})
+</script>
+
+
+    <!--底部-->
+    <div data-am-widget="navbar" class="am-navbar am-cf my-nav-footer " id="">
+      <ul class="am-navbar-nav am-cf am-avg-sm-4 my-footer-ul">
+        <li>
+          <a href="/Home/" class="">
+            <span class="am-icon-home"></span>
+            <span class="am-navbar-label">主页</span>
+          </a>
+        </li>
+        <li>
+          <a href="/InfoHome/" class="">
+            <span class=" am-icon-info"></span>
+            <span class="am-navbar-label">信息</span>
+          </a>
+        </li>
+        <li>
+          <a href="/ConversationHome/" class="">
+            <span class=" am-icon-comments"></span>
+            <span class="am-navbar-label">留言</span>
+          </a>
+        </li>
+        <li>
+          <a href="/MyHome/" class="">
+            <span class="am-icon-user"></span>
+            <span class="am-navbar-label">我的</span>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+
+
+      <script>
+	  	function showFooterNav(){
+			$("#footNav").toggle();
+		}
+	  </script>
+    </div>
+</div>
+
+
+
+</body>
+</html>
+
+
