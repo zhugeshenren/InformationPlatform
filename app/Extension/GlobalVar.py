@@ -4,7 +4,7 @@ import functools
 
 
 
-## 通过装饰器进行装饰，达到对异步的支持
+## 通过装饰器进行装饰，达到对并发的支持
 def LockWapper(fn):
     @functools.wraps(fn)
     def Wapper(self, *args, **kwargs):
@@ -79,4 +79,4 @@ class GlobalValue():
 
 
 # 维护一个全局的字典
-globalDict = GlobalDict(10)
+#globalDict = GlobalDict(10)

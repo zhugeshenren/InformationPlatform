@@ -14,7 +14,6 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, String, create_engine
 
 from app.Extension.GlobalVar import (
-    globalDict,
     GlobalDict
 )
 

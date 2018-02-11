@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Demo</title>
+    <title>{{page_title}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
     <!-- 引入jQuery -->
@@ -12,7 +12,11 @@
     <!-- 插件核心 -->
     <script src="/static/eleditor/Eleditor.js"></script>
 
-    <script src=""></script>
+    <link rel="stylesheet" href="/static/amazeui/css/amazeui.min.css"/>
+    <script src="/static/amazeui/js/jquery.min.js"></script>
+    <script src="/static/amazeui/js/amazeui.min.js"></script>
+
+    <script src="/static/default/PublicLib.js"></script>
 
 
 	<style>
@@ -77,6 +81,10 @@
 		    background: #FFEB3B;
 		    box-shadow: 0 0 5px;
 		}
+
+        .right{
+            float:right
+        }
 	</style>
 </head>
 <body>
@@ -84,31 +92,45 @@
 <font class="viewTit">（此编辑器仅适用移动端，chrome请按F12模拟手机设备进行浏览）</font>
 <script>
 	var ua = navigator.userAgent.toLowerCase();	;
-
 	if( ua.indexOf('android') >= 0 || ua.indexOf('iphone') >= 0 || ua.indexOf('ipad') >= 0 || $(window).width() <= 500 ){
 		$('.viewTit').hide();
 		$('body').css('padding-top', 0);
 	}
 </script>
-<p class="dempTip">用户名 15291910186：</p>
+
+<label>用户 : 15291910186</label>
+<div class = 'am-g'>
+  <div class="am-dropdown right" data-am-dropdown>
+  <button class="am-btn am-btn-primary am-dropdown-toggle" data-am-dropdown-toggle>操作 <span class="am-icon-caret-down"></span></button>
+  <ul class="am-dropdown-content">
+    <li><a href="#" onclick="SaveMyPublish()">保存</a></li>
+    <li><a href="#">发布</a></li>
+    <li><a href="#" onclick="">退出</a></li>
+  </ul>
+</div>
+
+</div>
 
 
 <hr>
+
 
 <div id="contentEditor">
 
    <h1 style="text-align: center;">点击开始编辑文章</h1>
 
+
 </div>
 
-<>
 
+<hr>
 <script>
 var contentEditor = new Eleditor({
 						el: '#contentEditor',
 						upload:{
-							server: '/upload.json',
+							server: '/My/MyPublish/AddMyPublish/AddImg',
 							compress: false,
+                            resize: true,
 							fileSizeLimit: 2
 						},
 						toolbars: [
@@ -156,6 +178,14 @@ var contentEditor = new Eleditor({
 						]
 						//placeHolder: 'placeHolder设置占位符'
 					});
+
+// 保存我的发布
+function SaveMyPublish() {
+    var htmltext = $('#contentEditor').html();
+    alert(htmltext);
+}
+
+
 </script>
 
 </body>
