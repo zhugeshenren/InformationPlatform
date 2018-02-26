@@ -7,6 +7,7 @@ class DecodeHtmlBody():
         text = urltext.decode('utf-8');
         text = text.split('&');
         tmpdict = dict();
+
         for txt in text:
             # 分割出每一段
             key = '';
@@ -21,6 +22,7 @@ class DecodeHtmlBody():
             value = tmp;
 
             key = unquote(key);
+
             # 开始迭代生成字典
             # 更新tmpdict
             self.__update_key_dict(tmpdict,self.__decode_body_key(key,value))
@@ -41,6 +43,7 @@ class DecodeHtmlBody():
             tmp += key[i];
 
         strlist.append(tmp);
+
 
         key = key[tlen:];
         tmp = '';
@@ -70,10 +73,24 @@ class DecodeHtmlBody():
 
     def __update_key_dict(self,tmpdict,elem):
         # 处理key相同时的情况
+        # 在递归中加入类型判断 使得算法更加难以理解
         while tmpdict.get(list(elem.keys())[0],None):
             key = list(elem.keys())[0];
+            if (type(elem.get(key)) is not dict and type(tmpdict.get(key)) is not dict):
+                if (type(tmpdict.get(key)) is not list):
+                    td = tmpdict.get(key);
+                    tlist = list();
+                    tlist.append(tmpdict.get(key));
+                    tlist.append(elem.get(key));
+                    tmpdict[key] = tlist;
+                    return;
+                else:
+                    tmpdict[key].append(elem.get(key));
+                    return;
+
             tmpdict = tmpdict.get(key);
             elem = elem.get(key);
+
         tmpdict.update(elem);
 
 

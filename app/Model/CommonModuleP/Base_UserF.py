@@ -1,17 +1,13 @@
-from app.Model.BaseUtilityF import BaseEntity
-from sqlalchemy import Column, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
+from app.Model.BaseUtilityF import (BaseEntity,
+                                    Base)
 
-# 使用 type 动态的创建了一个对象
-Base = declarative_base();
+from sqlalchemy import Column, Integer, String
+
+# DR
 
 class UserModel(Base,BaseEntity):
-
     # 表名
     __tablename__ = 'users'
-
-    # 用户id
-    id = Column(Integer,primary_key=True)
 
     # 姓名
     name = Column(String)
@@ -32,7 +28,4 @@ class UserModel(Base,BaseEntity):
         return 0
 
     def Modify(self,KeyValue):
-        return 0;
-
-
-
+        return 0

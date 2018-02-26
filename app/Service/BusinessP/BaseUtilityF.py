@@ -11,7 +11,7 @@ class BaseBllManager(object):
     # 考虑异步并发执行时的锁的问题
     SqlSession = None;
     def SetConn(self,ConnStr):
-        engine = create_engine(ConnStr, echo=False)
+        engine = create_engine(ConnStr, echo=False,encoding='utf-8')
         self.SqlSession = sessionmaker(bind=engine)
 
     def GetConn(self):
@@ -22,3 +22,6 @@ class BaseBllManager(object):
         if cls._instance is None:
             cls._instance = super(BaseBllManager,cls).__new__(cls,*args,**kwargs);
         return cls._instance;
+
+
+baseBllManager = BaseBllManager();

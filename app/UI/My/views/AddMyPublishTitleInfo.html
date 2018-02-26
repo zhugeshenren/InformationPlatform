@@ -22,21 +22,21 @@
   <div class="am-form-group">
     <label  class="am-u-sm-3 am-form-label">信息标题</label>
     <div class="am-u-sm-9">
-      <input type="text"  placeholder="输入你的标题">
+      <input type="text"  placeholder="输入你的标题" id = "in_title">
     </div>
   </div>
 
   <div class="am-form-group">
     <label  class="am-u-sm-3 am-form-label">信息描述</label>
     <div class="am-u-sm-9">
-      <input type="text" placeholder="输入你的描述">
+      <input type="text" placeholder="输入你的描述" id = "in_desc">
     </div>
   </div>
 
     <div class="am-form-group">
     <label  class="am-u-sm-3 am-form-label">地址</label>
     <div class="am-u-sm-9">
-      <input type="text" id="" placeholder="输入你的描述">
+      <input type="text"  placeholder="输入你的描述" id = "in_address">
     </div>
   </div>
 
@@ -83,44 +83,9 @@
 <div class="am-modal am-modal-alert" tabindex="-1" id="my-lable">
   <div class="am-modal-dialog">
     <div class="am-modal-hd">标签</div>
-    <div class="am-modal-bd">
-
-      <div class="am-checkbox">
-      <label>
-        <input type="checkbox" name="cbox" value="土豆"> 土豆
-      </label>
-    </div>
-
-        <div class="am-checkbox">
-      <label>
-        <input type="checkbox" name="cbox" value="西红柿"> 西红柿
-      </label>
-    </div>
-
-        <div class="am-checkbox" >
-      <label>
-        <input type="checkbox" name="cbox" value="树苗"> 树苗
-      </label>
-    </div>
-        <div class="am-checkbox">
-      <label>
-        <input type="checkbox" name="cbox" value="农产品"> 农产品
-      </label>
-    </div>
+    <div class="am-modal-bd" id = 'publish_lables'>
 
 
-        <div class="am-checkbox">
-      <label>
-        <input type="checkbox" name="cbox" value="树苗"> 树苗
-      </label>
-    </div>
-
-
-        <div class="am-checkbox">
-      <label>
-        <input type="checkbox" name="cbox" value="西瓜"> 西瓜
-      </label>
-    </div>
 
 
     </div>
@@ -139,9 +104,48 @@
 
 
 {% block javascript_in_body %}
+
+
+
 <script>
 
-    var mylables = new Array()
+    // 定义 datalist
+
+    var datalist = {
+
+        "title":"",
+        "desc_one":"",
+        "desc_two":"",
+        "desc_three":"",
+        "thumbnail":"",
+        "mylables" : ""
+    };
+
+    var mylables = {};
+
+    $(function(){
+        var tmpdata = {};
+        $.post("/My/MyPublish/GetPublishLables",tmpdata, function(data,status){
+            if(status == "success")
+            {
+                // 先转化为json 对象
+                var obj = JSON.parse(data)
+
+                console.log(data);
+                // 修改dom元素
+                for(var i=1;i<obj.length;i++){
+                    $("#publish_lables").append(
+                        "<div class=\"am-checkbox\"> <label> <input type=\"checkbox\" name=\"cbox\" value=\"" +
+                        obj[i][1] + "\"> " +obj[i][1]+ " </label> </div>")
+                };
+            }
+            else
+            {
+                alert("获取请求失败");
+            }
+        });
+    });
+
     // 每次关闭事件
     $('#my-lable').on('closed.modal.amui', function(){
         var text = document.getElementsByTagName('textarea')[0];
@@ -150,7 +154,7 @@
 
         for(i=0;i<elem.length;i++){
             if(elem[i].checked){
-                tmpText += '(' + (i+1) +')' + elem[i].value + ' ';
+                tmpText +=  elem[i].value + ' ';
                 mylables[i] = elem[i].value;
             }
         }
@@ -158,12 +162,15 @@
         text.value = tmpText;
     });
 
-    function callbackFun(msg) {
-
-    }
     // 通过ajax上传数据
     function PostData() {
-      datalist = {'xml===':'柱哥&&&&&&&','dr':'ak','':'b','a':{'z':{'c&&&&ddd':'d','e':{'k':'f'}},'ss':'mm'}}
+
+      datalist["title"] = $("#in_title").val();
+      datalist["desc_one"] = $("#in_desc").val();
+      datalist["desc_two"] = $("#in_address").val();
+
+      if (mylables.length != 0)
+        datalist["mylables"] = mylables;
 
 
       $.post("/My/MyPublish/AddMyPublishTitleInfo",datalist, function(data,status){
@@ -179,8 +186,6 @@
             }
         });
     }
-
-
 
 
 </script>

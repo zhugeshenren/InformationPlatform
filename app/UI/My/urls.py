@@ -6,8 +6,8 @@ from app.UI.My.controllers.MyPublish import (
     MyPublishControllers,
     AddMyPublishControllers,
     AddMyPublishTitleInfoControllers,
-    AddMyPublishImgControllers,
     AddMyPublishHtmlControllers,
+    GetPublishLablesControllers,
 )
 
 urlpattern = (
@@ -15,6 +15,6 @@ urlpattern = (
     (r'/My/MyPublish/?',MyPublishControllers),
     (r'/My/MyPublish/AddMyPublish/?',AddMyPublishControllers),
     (r'/My/MyPublish/AddMyPublishTitleInfo/?',AddMyPublishTitleInfoControllers),
-    (r'/My/MyPublish/AddMyPublish/AddImg/?',AddMyPublishImgControllers),
     (r'/My/MyPublish/AddMyPublish/AddHtml/?',AddMyPublishHtmlControllers),
+    (r'/My/MyPublish/GetPublishLables/?',GetPublishLablesControllers),
 )
