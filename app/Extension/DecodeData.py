@@ -1,7 +1,7 @@
 from urllib.parse import unquote
 
 # 将 self.request.body 中的数据解析为字典
-# ajax 数据 key 中出现 '['  ']' 一定会导致解析异常，但是value不会，事实上可以使用公钥加密
+# ajax 数据 key 中出现 '['  ']' 一定会导致解析异常，但是value不会，事实上可以加密
 class DecodeHtmlBody():
     def DecodeBody(self,urltext):
         text = urltext.decode('utf-8');
