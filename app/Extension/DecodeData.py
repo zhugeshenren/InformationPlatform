@@ -10,7 +10,7 @@ class DecodeHtmlBody():
 
         for txt in text:
             # 分割出每一段
-            key = ''; 
+            key = '';
             value = ''
             tmp = '';
             for c in txt:
