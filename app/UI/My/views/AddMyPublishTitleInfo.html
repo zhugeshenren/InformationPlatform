@@ -109,8 +109,8 @@
 
 <script>
 
-    // 定义 datalist
 
+    // 定义 datalist
     var datalist = {
 
         "title":"",
@@ -128,15 +128,17 @@
         $.post("/My/MyPublish/GetPublishLables",tmpdata, function(data,status){
             if(status == "success")
             {
-                // 先转化为json 对象
+                // 先转化为 json 对象
                 var obj = JSON.parse(data)
 
-                console.log(data);
-                // 修改dom元素
-                for(var i=1;i<obj.length;i++){
+                obj = ListToDict(obj);
+
+                console.log(obj[0]);
+                // 修改DOM元素
+                for(var i=0;i<obj.length;i++){
                     $("#publish_lables").append(
                         "<div class=\"am-checkbox\"> <label> <input type=\"checkbox\" name=\"cbox\" value=\"" +
-                        obj[i][1] + "\"> " +obj[i][1]+ " </label> </div>")
+                        obj[i].name + "\"> " +obj[i].name+ " </label> </div>")
                 };
             }
             else
@@ -145,6 +147,7 @@
             }
         });
     });
+
 
     // 每次关闭事件
     $('#my-lable').on('closed.modal.amui', function(){
@@ -186,7 +189,6 @@
             }
         });
     }
-
 
 </script>
 

@@ -66,7 +66,8 @@ class AddMyPublishTitleInfoControllers(PublicRequestHandler):
         #print(globalDict.Find(self.current_user))
         self.finish();
 
-# 获取 PublishLables 所有数据
+
+# 获取publis_lables标签的所有数据
 class GetPublishLablesControllers(PublicRequestHandler):
     def post(self, *args, **kwargs):
 
