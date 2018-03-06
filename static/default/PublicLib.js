@@ -27,7 +27,11 @@ function ListToDict(listData) {
 
 
 
-/**/
+/*
+* 分割url
+* url = http://www.zhuge.com?zhuge=10&name=dennis
+* 可以分割出 {"zhuge":"10","name":dennis}
+* */
 function GetUrlParam(url) {
     var urlParam = {};
     var param = url.split("?");
@@ -45,6 +49,9 @@ function GetUrlParam(url) {
                 tmp = "";
                 continue;
             }
+
+            if (param[i][t] == ' ')
+                continue;
 
             if(param[i][t] == '='){
                 key = tmp;
