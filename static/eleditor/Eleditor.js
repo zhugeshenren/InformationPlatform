@@ -414,7 +414,10 @@
 						    accept: {
 						        title: 'Images', extensions: 'gif,jpg,jpeg,bmp,png,webp',
 						        mimeTypes: 'image/gif,image/jpg,image/jpeg,image/bmp,image/png,image/webp'
-						    }
+						    },
+							formData:_arg.upload.formData
+
+
 						});
 			_controllerUploader.on( 'uploadStart', function( _file, _percentage ) {
 				_hideEditorControllerLayer();
@@ -427,7 +430,9 @@
 			    if ( arguments[0]=="Q_TYPE_DENIED" ) alert("请上传图片格式文件");
 		        if( arguments[0]=="F_EXCEED_SIZE" ) alert("文件大小不能超过"+(arguments[1] / 1048576)+"M");
 			});
-			_controllerUploader.on( 'uploadComplete', function() { _hideLoadingMask(); });			
+			_controllerUploader.on( 'uploadComplete', function() { _hideLoadingMask(); });
+
+			// 可以在参数中设置回掉函数 用以处理返回参数
 			_controllerUploader.on( 'uploadSuccess', function( _file, _call ) {
 			    if( _call.status == 1 ){
 			    	var _$upImg = $('<img src="'+_call.url+'">');
@@ -446,7 +451,8 @@
 						    accept: {
 						        title: 'Images', extensions: 'gif,jpg,jpeg,bmp,png,webp',
 						        mimeTypes: 'image/gif,image/jpg,image/jpeg,image/bmp,image/png,image/webp'
-						    }
+						    },
+							formData:_arg.upload.formData
 						});
 			_stylebarUploader.on( 'uploadStart', function( _file, _percentage ) {
 			    _showLoadingMask('上传图片中<span id="uploadProgress">1</span>%');
@@ -564,6 +570,8 @@
 		_$window.on('resize', function(){
 			_flushEditorControllerLayerPosi();
 		});
+
+		//* 猜测 使用event进行标记，事实上还是chick事件，这样写的优点在于可以根据json实时绑定事件
 
 		_$editorController.on('click', 'ul li', function() {
 			var _$this = $(this),
@@ -765,7 +773,15 @@
 				_$editorWrap.find('*').off();
 				_$editorWrap.remove();
 				console.log('|--Eleditor '+_editorUid+' destoryed');
-			}
+			},
+
+			getControllerUploader:function () {
+				return _controllerUploader;
+            },
+
+            getStylebarUploader:function () {
+				return _stylebarUploader;
+            }
 
 		}
 	}

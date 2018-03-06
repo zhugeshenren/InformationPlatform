@@ -125,13 +125,22 @@
 
 <hr>
 <script>
-var contentEditor = new Eleditor({
+    var backdata = GetUrlParam(window.location.href);
+    if (backdata.publish_id = undefined){
+
+        // 假如没有传参过来  说明为一个异常的访问
+    }
+
+
+
+    var contentEditor = new Eleditor({
 						el: '#contentEditor',
 						upload:{
-							server: 'http://39.107.227.137:8001/AddImg',
+							server: 'http://127.0.0.1:8001/AddImg',
 							compress: false,
                             resize: true,
-							fileSizeLimit: 2
+							fileSizeLimit: 2,
+                            formData:{"testkey":"zhuge"}
 						},
 						toolbars: [
 			              'insertText',
@@ -178,7 +187,6 @@ var contentEditor = new Eleditor({
 						]
 						//placeHolder: 'placeHolder设置占位符'
 					});
-
 // 保存我的发布
 function SaveMyPublish() {
     var htmltext = $('#contentEditor').html();

@@ -172,7 +172,7 @@
       datalist["desc_one"] = $("#in_desc").val();
       datalist["desc_two"] = $("#in_address").val();
 
-      if (mylables.length != 0)
+      if (mylables.length > 0)
         datalist["mylables"] = mylables;
 
 
@@ -181,7 +181,7 @@
             {
                 // 先转化为json 对象
                 var obj = JSON.parse(data)
-                window.location.href= obj.nextUrl;
+                window.location.href= obj.nextUrl+"?publish_id=1";
             }
             else
             {

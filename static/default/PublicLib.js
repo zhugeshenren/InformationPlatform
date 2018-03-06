@@ -23,3 +23,38 @@ function ListToDict(listData) {
     }
     return result;
 }
+
+
+
+
+/**/
+function GetUrlParam(url) {
+    var urlParam = {};
+    var param = url.split("?");
+    if (url.length == param[0].length)
+        return urlParam;
+
+    key = "";
+    tmp = "";
+    for (var i=1;i<param.length;i++){
+
+        for(var t in param[i]){
+            if (param[i][t] == '&') {
+                urlParam[key] = tmp;
+                key = "";
+                tmp = "";
+                continue;
+            }
+
+            if(param[i][t] == '='){
+                key = tmp;
+                tmp = "";
+                continue;
+            }
+            tmp += param[i][t];
+        }
+    }
+    urlParam[key] = tmp;
+
+    return urlParam;
+}

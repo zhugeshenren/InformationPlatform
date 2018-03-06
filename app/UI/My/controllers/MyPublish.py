@@ -42,6 +42,8 @@ class AddMyPublishControllers(PublicRequestHandler):
             self.render('My/views/AddMyPublish.html');
         '''
         self.render('My/views/AddMyPublish.html',page_title = '编辑');
+        print(args)
+
 
 
 # 添加发布标题信息
@@ -53,14 +55,17 @@ class AddMyPublishTitleInfoControllers(PublicRequestHandler):
     def post(self, *args, **kwargs):
 
         # 解析json TMD解析类竟然需要我自己写
-
         print(self.request.body)
         dictdata = decodeHtmlBody.DecodeBody(self.request.body)
-
         print(dictdata)
         # 进行URL解码
-        # 返回一个json
-        resvalue = {'nextUrl': '/My/MyPublish/AddMyPublish'};
+
+
+        # 返回前端一个json
+        resvalue = dict();
+        resvalue['nextUrl'] = '/My/MyPublish/AddMyPublish';
+        resvalue["publish_id"] = "1234567";
+
         self.write(json.dumps(resvalue))
         #globalDict.Insert(self.current_user,'True');
         #print(globalDict.Find(self.current_user))

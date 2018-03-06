@@ -37,7 +37,8 @@ if __name__ == "__main__":
                                   )
 
     # 创建一个数据库连接池，作为一个全局变量
-    ConnStr = 'mysql+pymysql://Dennis:P@ssw0rd@39.107.227.137:3306/infoplatformdb?charset=utf8';
+    #ConnStr = 'mysql+pymysql://Dennis:P@ssw0rd@39.107.227.137:3306/infoplatformdb?charset=utf8';
+    ConnStr = 'mysql+pymysql://root:123456@127.0.0.1:3306/infoplatformdb?charset=utf8';
     BaseBllManager().SetConn(ConnStr);
 
     # 巧妙地通过 Configurable的 __new__方法构造了对象
