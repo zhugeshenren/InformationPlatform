@@ -109,7 +109,7 @@
 
 <script>
 
-
+    //  哎 我前端写的真的垃圾
     // 定义 datalist
     var datalist = {
 
@@ -122,6 +122,7 @@
     };
 
     var mylables = {};
+    var UniqueKey = "";
 
     $(function(){
         var tmpdata = {};
@@ -137,7 +138,7 @@
                 // 修改DOM元素
                 for(var i=0;i<obj.length;i++){
                     $("#publish_lables").append(
-                        "<div class=\"am-checkbox\"> <label> <input type=\"checkbox\" name=\"cbox\" value=\"" +
+                        "<div class=\"am-checkbox\"> <label> <input type=\"checkbox\" id = \"" +obj[i].id + "\" name=\"cbox\" value=\"" +
                         obj[i].name + "\"> " +obj[i].name+ " </label> </div>")
                 };
             }
@@ -146,6 +147,21 @@
                 alert("获取请求失败");
             }
         });
+
+        var keyTmp = {}
+        $.post("/GeneralPage/GetUniqueKey",keyTmp, function(data,status){
+            if(status == "success")
+            {
+                // 先转化为 json 对象
+                var obj = JSON.parse(data);
+                UniqueKey = obj.UniqueKey;
+            }
+            else
+            {
+                alert("获取请求失败");
+            }
+        });
+
     });
 
 
@@ -158,7 +174,7 @@
         for(i=0;i<elem.length;i++){
             if(elem[i].checked){
                 tmpText +=  elem[i].value + ' ';
-                mylables[i] = elem[i].value;
+                mylables[elem[i].id] = elem[i].value;
             }
         }
 
@@ -180,8 +196,8 @@
             if(status == "success")
             {
                 // 先转化为json 对象
-                var obj = JSON.parse(data)
-                window.location.href= obj.nextUrl+"?publish_id=1";
+                var obj = JSON.parse(data);
+                window.location.href = obj.nextUrl+"?publish_id="+obj.publish_id;
             }
             else
             {

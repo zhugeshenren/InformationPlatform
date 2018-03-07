@@ -4,7 +4,7 @@ from app.Model.CommonModuleP.Base_UserF import UserModel
 from sqlalchemy.orm import sessionmaker;
 
 from app.Model.CommonModuleP.Base_UserF import UserModel;
-from app.Service.BusinessP.BaseUtilityF import (BaseBllManager,baseBllManager)
+from app.Service.BusinessP.BaseUtilityF import (baseBllManager)
 
 from app.Service.RepositoryP.RepositoryF import Repository
 

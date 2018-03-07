@@ -1,7 +1,16 @@
 from urllib.parse import unquote
 
-# 将 self.request.body 中的数据解析为字典
-# ajax 数据 key 中出现 '['  ']' 一定会导致解析异常，但是value不会，事实上可以加密
+'''
+    功能 : 将 self.request.body 中的数据解析为python字典
+    
+    bug1 : ajax 数据 key 中出现 '['  ']' 一定会导致解析异常，但是value不会，事实上可以加密
+    bug2 : 当前台传入的数据为:
+        {key1:{key2:[val1,val2,val3]}}
+        这样解析会出现异常，解析为
+        {key1:{key2:{'' : [val1,val2,val3]} }}
+        事实上为了保证解析的一致性，这个Bug目前无法解决，因为当key确实为''是，url编码与上述相同，所以尽量保证前台传入数据不包含list格式
+'''
+
 class DecodeHtmlBody():
     def DecodeBody(self,urltext):
         text = urltext.decode('utf-8');

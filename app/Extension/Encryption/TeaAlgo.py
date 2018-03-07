@@ -19,14 +19,17 @@ class Tea:
 
     '''
         目前加密解密只适合于ascil编码，后期可以加装饰器，拦截data
-        
         顺序加密
+        data 的类型为字符数组
+        :data = ['z','h','u','g','e']
+        :key 为长度为4的int32数组
     '''
     def encode(self,data,key,encoding = "ascil"):
 
         if (encoding is not "ascil"):
             pass
 
+        # 将字符变为ascil码值
         for t in  range(len(data)):
             data[t] = ord(data[t])
 
@@ -37,6 +40,9 @@ class Tea:
 
     '''
         逆序解密
+        data 为 int32 列表
+        :data = [12345678,1235433,655756]
+        :key 为长度为4的int32数组
     '''
     def decode(self,data,key,encoding = "ascil"):
         if(encoding is not "ascil"):
@@ -95,6 +101,10 @@ class Tea:
         w[1] = z.value;
         return w;
 
+
+# 创建一个单例
+tea = Tea();
+
 '''
     测试用例
 '''
@@ -105,10 +115,15 @@ if __name__ == "__main__":
 
     k = [112,113,114,115];
 
-    v = list("2018-12-11-Dennis")
+    v = list("2018-12-11-15291910186")
     tea.encode(v,k);
 
-    print(v)
+    s = '';
+    for t in v:
+        s += (str(t)+'x')
+
+
+    print(s)
     tea.decode(v,k);
 
 

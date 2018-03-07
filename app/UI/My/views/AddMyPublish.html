@@ -125,73 +125,88 @@
 
 <hr>
 <script>
-    var backdata = GetUrlParam(window.location.href);
-    if (backdata.publish_id = undefined){
+    var contentEditor = null;
 
+
+    var backdata = GetUrlParam(window.location.href);
+    if (backdata.publish_id = undefined) {
         // 假如没有传参过来  说明为一个异常的访问
     }
 
+    contentEditor = new Eleditor({el: '#contentEditor', upload: {
+        server: 'http://127.0.0.1:8001/AddImg',
+        compress: false,
+        resize: true,
+        fileSizeLimit: 2,
+        formData: {"UniqueKey": ""}
+    }, toolbars: [
+        'insertText',
+        'editText',
+        'insertImage',
+        'insertLink',
+        'deleteBefore',
+        'deleteAfter',
+        'insertHr',
+        'deleteThis',
+        //自定义一个按钮
+        {
+            id: 'changeIndent',
+            tag: 'p,img', //指定P标签操作，可不填
+            name: '缩进',
+            handle: function (select, controll) {//回调返回选择的dom对象和控制按钮对象
+                var _$ele = $(select),
+                    _$controll = $(controll);
+                _$controll.html(_$ele.css('text-indent') != '0px' ? '缩进' : '还原缩进');
+                _$ele.css('text-indent', _$ele.css('text-indent') == '0px' ? '5em' : '0px');
+            }
+        },
+        //自定义按钮，该按钮只有在编辑IMG标签时才会显示
+        {
+            id: 'rotateImage',
+            tag: 'img', //指定IMG标签操作，可不填
+            name: '反转图片',
+            handle: function (select, controll) {
+                var _$ele = $(select),
+                    _$controll = $(controll);
+                if (_$ele.attr('transform-rotate') != '180deg') {
+                    _$controll.html('还原图片');
+                    _$ele.attr('transform-rotate', '180deg').css('transform', 'rotate(180deg)');
+                } else {
+                    _$controll.html('反转图片');
+                    _$ele.removeAttr('transform-rotate').css('transform', 'rotate(0)');
+                }
+            }
+        },
+        'cancel'
+    ]//placeHolder: 'placeHolder设置占位符'
+    });
 
 
-    var contentEditor = new Eleditor({
-						el: '#contentEditor',
-						upload:{
-							server: 'http://127.0.0.1:8001/AddImg',
-							compress: false,
-                            resize: true,
-							fileSizeLimit: 2,
-                            formData:{"testkey":"zhuge"}
-						},
-						toolbars: [
-			              'insertText',
-			              'editText',
-			              'insertImage',
-			              'insertLink',
-			              'deleteBefore',
-			              'deleteAfter',
-			              'insertHr',
-			              'deleteThis',
+    var keyTmp = {}
+    // 因为post的回调函数是异步的，只能是先创建contentEditor 在设置 formData
+    $.post("/GeneralPage/GetUniqueKey", keyTmp, function (data, status) {
+        if (status == "success") {
+            // 先转化为 json 对象
+            var obj = JSON.parse(data);
 
-			              //自定义一个按钮
-			              {
-			                  id: 'changeIndent',
-			                  tag: 'p,img', //指定P标签操作，可不填
-			                  name: '缩进',
-			                  handle: function(select, controll){//回调返回选择的dom对象和控制按钮对象
-			                    var _$ele = $(select),
-			                      _$controll = $(controll);
-			                    _$controll.html(_$ele.css('text-indent') != '0px' ? '缩进' : '还原缩进');
-			                    _$ele.css('text-indent', _$ele.css('text-indent') == '0px' ? '5em' : '0px');
-			                  }
-			              },
+            // 设置key
+            contentEditor.getControllerUploader().options.formData.UniqueKey = obj.UniqueKey;
+        }
+        else {
+            alert("获取请求失败");
+        }
+    });
 
-			              //自定义按钮，该按钮只有在编辑IMG标签时才会显示
-			              {
-			                  id: 'rotateImage',
-			                  tag: 'img', //指定IMG标签操作，可不填
-			                  name: '反转图片',
-			                  handle: function(select, controll){
-			                    var _$ele = $(select),
-			                      _$controll = $(controll);
-			                    if( _$ele.attr('transform-rotate') != '180deg' ){
-			                      _$controll.html('还原图片');
-			                        _$ele.attr('transform-rotate', '180deg').css('transform', 'rotate(180deg)');
-			                    }else{
-			                      _$controll.html('反转图片');
-			                      _$ele.removeAttr('transform-rotate').css('transform', 'rotate(0)');
-			                    }
-			                  }
-			                },
 
-			                'cancel'
-						]
-						//placeHolder: 'placeHolder设置占位符'
-					});
-// 保存我的发布
-function SaveMyPublish() {
-    var htmltext = $('#contentEditor').html();
-    alert(htmltext);
-}
+    // UniqueKey 必须保持 "鲜活"
+
+
+    // 保存我的发布
+     function SaveMyPublish() {
+         var htmltext = $('#contentEditor').html();
+         alert(htmltext);
+     }
+
 
 
 </script>

@@ -4,18 +4,22 @@ import functools
 
 
 
-## 通过装饰器进行装饰，达到对并发的支持
+## 通过装饰器进行装饰 加锁，达到对并发的支持
 def LockWapper(fn):
     @functools.wraps(fn)
     def Wapper(self, *args, **kwargs):
-        future = getattr(self, 'mutex')
-        if self.mutex.acquire():
+        mutex = getattr(self, 'mutex')
+        if mutex.acquire():
             var = fn(self,*args, **kwargs);
-            self.mutex.release();
+            mutex.release();
         return var;
     return Wapper;
 
-
+'''
+    dict 结构
+    { key : value }
+    value = { 'SaveTime’ : 驻留时长, 'time': 创建时间，'data' : 数据}
+'''
 class GlobalDict(dict):
     # 创建一个全局的字典
     _instance = None;
@@ -53,6 +57,11 @@ class GlobalDict(dict):
     @LockWapper
     def Find(self,key):
         return self.get(key,None)
+
+    @LockWapper
+    def Update(self,key,val):
+        self[key] = val;
+        return True;
 
     def ClearInvalidTime(self):
         while True:

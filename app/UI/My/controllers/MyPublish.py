@@ -7,7 +7,7 @@ import re
 from app.Extension.DecodeData import decodeHtmlBody
 from tornado.web import authenticated
 
-from app.Service.BusinessP.CommonBusinessP.Base_PublishLablesBllF import Base_PublishLablesBll
+from app.Service.BusinessP.CommonBusinessP.Base_PublishInfoLablesBllF import Base_PublishLablesBll
 
 base_PublishLablesBll = Base_PublishLablesBll();
 
@@ -42,7 +42,6 @@ class AddMyPublishControllers(PublicRequestHandler):
             self.render('My/views/AddMyPublish.html');
         '''
         self.render('My/views/AddMyPublish.html',page_title = '编辑');
-        print(args)
 
 
 
@@ -57,9 +56,10 @@ class AddMyPublishTitleInfoControllers(PublicRequestHandler):
         # 解析json TMD解析类竟然需要我自己写
         print(self.request.body)
         dictdata = decodeHtmlBody.DecodeBody(self.request.body)
+
+
         print(dictdata)
         # 进行URL解码
-
 
         # 返回前端一个json
         resvalue = dict();

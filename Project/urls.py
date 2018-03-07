@@ -4,6 +4,7 @@ import app.UI.Home.urls
 import app.UI.Info.urls
 import app.UI.Conversation.urls
 import app.UI.My.urls
+import app.UI.GeneralPage.urls
 
 urlpattern = ();
 
@@ -16,3 +17,5 @@ urlpattern += app.UI.Info.urls.urlpattern;
 urlpattern += app.UI.Conversation.urls.urlpattern;
 
 urlpattern += app.UI.My.urls.urlpattern;
+
+urlpattern += app.UI.GeneralPage.urls.urlpattern;
